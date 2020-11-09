@@ -23,11 +23,11 @@
 // })
 
 const add = (a, b, callback) => {
-    setTimeout(() => {
-        callback(a + b)
-    }, 2000)
+  setTimeout(() => {
+    callback(a + b)
+  }, 2000)
 }
 
 add(1, 4, (sum) => {
-    console.log(sum) // Should print: 5
+  console.log(sum) // Should print: 5
 })
