@@ -36,6 +36,7 @@ app.get('/about', (req, res) => {
 
 app.get('/weather', (req, res) => {
   res.render('weather', {
+    title: 'Weather',
     forecast: 'It is sunny',
     location: 'Philadelphia',
     name: 'Nhi Ngo',

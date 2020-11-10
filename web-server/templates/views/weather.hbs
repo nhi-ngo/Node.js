@@ -4,13 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Express.js Learning</title>
+  <title>Weather</title>
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
-  <h2>{{forecast}}</h2>
-  {{>header}}
-  <p>{{location}}</p>
+  <div class="main-content">
+    {{>header}}
+    <p>{{forecast}} in {{location}}.</p>
+  </div>
+
   {{>footer}}
 </body>
 
