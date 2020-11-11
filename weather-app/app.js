@@ -1,5 +1,5 @@
-const geocode = require('./utils/geocode')
-const forecast = require('./utils/forecast')
+const geocode = require('./utils/geocode-request')
+const forecast = require('./utils/forecast-request')
 
 /* Address -> Lat/Long -> Weather */
 
