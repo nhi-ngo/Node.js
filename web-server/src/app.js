@@ -2,6 +2,9 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
+
 const app = express()
 
 // define path for Express config
@@ -20,8 +23,8 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) => {
   // render a view template
   res.render('index', {
-    title: 'My New Post',
-    body: 'This is my first post!',
+    title: 'Weather',
+    body: 'Use this site to get your weather!',
     name: 'Nhi Ngo',
   })
 })
@@ -35,11 +38,29 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-  res.render('weather', {
-    title: 'Weather',
-    forecast: 'It is sunny',
-    location: 'Philadelphia',
-    name: 'Nhi Ngo',
+  if (!req.query.address) {
+    return res.send({
+      error: 'You must provide an address!',
+    })
+  }
+
+  // destructuring empty object by default
+  geocode(req.query.address, (error, { lat, long, location } = {}) => {
+    if (error) {
+      return res.send({ error })
+    }
+
+    forecast(lat, long, (error, forecastData) => {
+      if (error) {
+        return res.send({ error })
+      }
+
+      res.send({
+        location,
+        forecast: forecastData,
+        address: req.query.address,
+      })
+    })
   })
 })
 
@@ -48,6 +69,18 @@ app.get('/weather/*', (req, res) => {
     title: '404',
     name: 'Nhi Ngo',
     errorMessage: 'Weather article not found',
+  })
+})
+
+app.get('/products', (req, res) => {
+  if (!req.query.search) {
+    return res.send({
+      error: 'You must provide a search term',
+    })
+  }
+
+  res.send({
+    products: [],
   })
 })
 

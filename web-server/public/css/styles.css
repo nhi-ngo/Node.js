@@ -32,3 +32,16 @@ h1 {
 	font-size: 64px;
 	margin-bottom: 16px;
 }
+
+input {
+	border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+button {
+	cursor: pointer;
+	padding: 8px;
+	background: #888888;
+	color: white;
+	border: 1px solid #888888;
+}
