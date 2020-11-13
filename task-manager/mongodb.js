@@ -13,7 +13,7 @@ MongoClient.connect(connectionUrl, { useUnifiedTopology: true }, (error, client)
 
   const db = client.db(dbName)
 
-  /* Find a document by ObejctId */
+  /* Find a document by ObjectId */
   // db.collection('users').findOne(
   //   { _id: new ObjectID('5fad93715f8c4f384bc6fb4f') },
   //   (error, user) => {
@@ -26,14 +26,14 @@ MongoClient.connect(connectionUrl, { useUnifiedTopology: true }, (error, client)
   // )
 
   /* Delete multiple documents */
-  db.collection('users')
-    .deleteMany({
-      city: 'Albany',
-    })
-    .then((result) => {
-      console.log(result)
-    })
-    .catch((error) => console.log(error))
+  // db.collection('users')
+  //   .deleteMany({
+  //     city: 'Albany',
+  //   })
+  //   .then((result) => {
+  //     console.log(result)
+  //   })
+  //   .catch((error) => console.log(error))
 
   /* Update a document */
   // db.collection('users')
@@ -73,16 +73,17 @@ MongoClient.connect(connectionUrl, { useUnifiedTopology: true }, (error, client)
 
   /* Insert a document */
   // db.collection('users').insertOne({
-  //   name: 'Nhi',
+  //   name: 'Eva',
   //   city: 'Albany',
+  //   age: '31',
   // })
 
   /* Insert multiple documents */
   // db.collection('users').insertMany(
   //   [
-  //     { name: 'Jen', city: 'Albany' },
-  //     { name: 'Henry', city: 'Austin' },
-  //     { name: 'Shawn', city: 'New York' },
+  //     { name: 'Jen', city: 'Albany', age: 31 },
+  //     { name: 'Henry', city: 'Austin', age: 28 },
+  //     { name: 'Shawn', city: 'New York', age: 27 },
   //   ],
   //   (error, result) => {
   //     if (error) {
