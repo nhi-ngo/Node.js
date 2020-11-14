@@ -9,16 +9,48 @@ const port = process.env.PORT || 3000
 // Configure express to automatically parse the incoming requests with JSON
 app.use(express.json())
 
+/* User Model */
+
+/* Create */
 app.post('/users', (req, res) => {
   const user = new User(req.body)
 
   user
     .save()
     .then(() => res.status(201).send(user))
-    .catch((error) => {
+    .catch((error) =>
+      // bad request error
       res.status(400).send(error)
+    )
+})
+
+/* Read */
+app.get('/users', (req, res) => {
+  User.find({})
+    .then((users) => res.send(users))
+    .catch((error) =>
+      // database error
+      res.status(500).send(error)
+    )
+})
+
+app.get('/users/:id', (req, res) => {
+  // console.log(req.params) // params object with id as its properties { id: '5faef180b14dc9755b668440' }
+  const _id = req.params.id
+
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send()
+      }
+      res.send(user)
+    })
+    .catch((error) => {
+      res.status(500).send(error)
     })
 })
+
+/* Task Model */
 
 app.post('/tasks', (req, res) => {
   const task = new Task(req.body)
@@ -28,6 +60,27 @@ app.post('/tasks', (req, res) => {
     .then(() => res.status(201).send(task))
     .catch((error) => {
       res.status(400).send(error)
+    })
+})
+
+app.get('/tasks', (req, res) => {
+  Task.find({})
+    .then((tasks) => res.send(tasks))
+    .catch((error) => res.status(500).send(error))
+})
+
+app.get('/tasks/:id', (req, res) => {
+  const _id = req.params.id
+
+  Task.findById(_id)
+    .then((task) => {
+      if (!task) {
+        return res.status(404).send()
+      }
+      res.send(task)
+    })
+    .catch((error) => {
+      res.status(500).send(error)
     })
 })
 
