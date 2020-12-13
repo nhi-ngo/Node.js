@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const bcrypt = require('bcryptjs')
 
 const { Schema } = mongoose
-const UserSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -40,6 +41,16 @@ const UserSchema = new Schema({
   },
 })
 
-const User = mongoose.model('User', UserSchema)
+userSchema.pre('save', async function (next) {
+  const user = this
+
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, 8)
+  }
+  // Pre middleware functions are executed one after another, when each middleware calls next.
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User
